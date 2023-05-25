@@ -5,7 +5,7 @@
 {% block content %}
     {% if meal_categories %}
         {% for category in meal_categories %}
-            {{category.0}}
+            <h2><a href="{% %}">{{category.0}}</a></h2><br>
         {% endfor %}
     {% else %}
         Нет категорий блюд
