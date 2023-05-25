@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+{% block tittle %} {{meal.name}} {% endblock %}
+
+{% block content %}
+    {% if meal %}
+        <p><b>Блюдо: </b> {{meal.name}}</p>
+        <p><b>Описание: </b> {{meal.description}}</p>
+        <p><b>Цена: </b> {{meal.price}} BYN</p>
+        <p><b>Вес: </b> {{meal.size}} Грамм</p>
+    {% else %}
+        Пусто1
+    {% endif %}
+{% endblock %}

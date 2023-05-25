@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'index.html' %}
 
-</body>
-</html>
+{% block tittle %} {{meal_category}} {% endblock %}
+
+{% block content %}
+    {% if meals %}
+        {% for meal in meals %}
+            <h2><a href="{% url 'restaurant_app:meal' meal.id %}">{{meal.name}}</a></h2>
+        {% endfor %}
+    {% else %}
+        Нет блюд в этой категории
+    {% endif %}
+{% endblock %}
