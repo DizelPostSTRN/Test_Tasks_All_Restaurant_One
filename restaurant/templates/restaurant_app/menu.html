@@ -3,5 +3,11 @@
 {% block tittle %} Меню {% endblock %}
 
 {% block content %}
-    Здесь будет еда
+    {% if meal_categories %}
+        {% for category in meal_categories %}
+            {{category.0}}
+        {% endfor %}
+    {% else %}
+        Нет категорий блюд
+    {% endif %}
 {% endblock %}
