@@ -5,7 +5,7 @@
 {% block content %}
     {% if meal_categories %}
         {% for category in meal_categories %}
-            <h2><a href="{% url 'restaurant_app:meal_category' category.0 %}">{{category.0}}</a></h2><br>
+            <h2><a href="{% url 'restaurant_app:meal_category' category.0 %}">{{category.0}}</a></h2>
         {% endfor %}
     {% else %}
         Нет категорий блюд

@@ -6,5 +6,6 @@ def menu(request):
     return render(request, 'restaurant_app/menu.html', {'meal_categories': meal_categories})
 
 
-def meal_category(requset, meal_category):
-    pass
+def meal_category(request, meal_category):
+    meals_by_category = Meal.objects.filter(meal_type=meal_category)
+    return render(request, 'restaurant_app/meals.html', {'meals': meals_by_category, 'meal_category': meal_category})
