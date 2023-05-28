@@ -6,6 +6,15 @@ class Meal(models.Model):
     description = models.TextField('Описание блюда')
     price = models.IntegerField('Стоимость блюда')
     size = models.IntegerField('Граммовка блюда')
+    is_active = models.BooleanField('АКТИВНО', default=True)  # добавляем поле для активирования/деактивирования товара
+    is_on_stop = models.BooleanField('НА СТОПЕ', default=False)  # добавляем поле для стоп-продажи товара
+
+    # class ProductAdmin(models.Model):
+    #     fieldsets = (
+    #         (None, {'fields': ('name', 'description', 'price')}),
+    #         ('Availability', {'fields': ('is_active', 'is_on_stop'),  # добавляем поле is_on_stop в группу Availability
+    #                             }),
+    #     )
 
     class MealType(models.TextChoices):
         HOT_MEALS = 'Горячие блюда'
