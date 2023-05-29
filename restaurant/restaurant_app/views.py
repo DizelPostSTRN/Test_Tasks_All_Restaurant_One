@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from .models import Meal
 from django.utils import timezone
+from django.http import JsonResponse
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from .models import Order
+from .serializers import OrderSerializer
 
 
 def menu(request):
@@ -27,3 +32,38 @@ def meal(request, meal_id):
 
 def statistics():
     pass
+
+
+class OrderListCreateView(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+def create_order(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        products = [Meal.objects.get(id=product['id']) for product in data['products']]
+        order = Order.objects.create()
+        order.products.add(*products)
+        order.save()
+        return JsonResponse({'status': 'created'})
+    else:
+        return JsonResponse({'error': 'invalid method'})
+
+
+def get_orders(request):
+    if request.method == 'GET':
+        orders = Order.objects.all().order_by('-date_created')
+        data = [
+            {'id': order.id, 'products': [{'id': product.id, 'name': product.name} for product in order.products.all()]}
+            for order in orders]
+        return JsonResponse({'orders': data})
+    else:
+        return JsonResponse({'error': 'invalid method'})

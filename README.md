@@ -7,3 +7,5 @@ Django 4.2.1
 DRF 3.14.0
 
 DRKnox 4.2.0
+
+Psycopg2 2.9.6

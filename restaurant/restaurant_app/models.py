@@ -9,6 +9,9 @@ class Meal(models.Model):
     is_active = models.BooleanField('АКТИВНО', default=True)  # добавляем поле для активирования/деактивирования товара
     is_on_stop = models.BooleanField('НА СТОПЕ', default=False)  # добавляем поле для стоп-продажи товара
 
+    def __str__(self):
+        return self.name
+
     # class ProductAdmin(models.Model):
     #     fieldsets = (
     #         (None, {'fields': ('name', 'description', 'price')}),
@@ -33,3 +36,9 @@ class Meal(models.Model):
 class MealClick(models.Model):
     meal = models.ForeignKey(Meal, on_delete=models.DO_NOTHING)
     click_date = models.DateTimeField('Дата клика')
+
+
+# модель обработки аказов, которая будет связана с моделью Meal через отношение многие-ко-многим
+class Order(models.Model):
+    products = models.ManyToManyField(Meal)
+    date_created = models.DateTimeField(auto_now_add=True)
